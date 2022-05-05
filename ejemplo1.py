@@ -46,3 +46,27 @@ The BQM equation,
 
 #       Ising:     E(s) = sumatorio (hi*si) + sumatorio(Ji,j*si*sj) 
 #                             i=1                i<j
+
+
+# Diferencias entre Ising y QUBO : evidentemente , la mayor diferencia es que Ising trabaja con spin (-1,1) y QUBO usa binario(0,1).
+# Dado que ambas expresiones son isomorfas, la elección de  spin o binario puede afectar la manera de expresar el problema;
+# es decir, por qué QUBOs pueden ser totalmente expresados en forma  expanded y matricial,mientras Ising puede ser expresado en forma expandida,
+# pero no puede ser expresado totalmente en forma matricial. Consideremos la siguiente multiplicación de matrices :
+
+#                  1  4  6   x1
+# (x1   x2    x3)( 0  2  5 )(x2 )      2**
+#                  0  0  3   x3
+
+# Expandiendo (resolviendo) esta multiplicación obtenemos  x1^2 + 2x2^2 + 3x3^2 + 4x1x2 + 5x2x3 + 6x1x3    2**
+
+# Recordemos que podemos expresar tanto Ising como QUBO en la siguiente expresión expandida : x1 + 2x2 + 3x3 + 4x1x2 + 5x2x3 + 6x1x3    1**
+# Recordemos también que con QUBOs, solo trabajamos con variables binarias, 0s y 1s. Por lo tanto , si tenemos un xi perteneciente al conjunto {0,1}, 
+# entonces xi = xi^2. (i.e. 0=0^2 and 1=1^2). Esto significa que un problema QUBO expresado como en 2** puede ser expresado también como 1**  :
+# 
+#                                                                                                             1  4  6   x1
+#    x1 + 2x2 + 3x3 + 4x1x2 + 5x2x3 + 6x1x3 = x1^2 + 2x2^2 + 3x3^2 + 4x1x2 + 5x2x3 + 6x1x3 = (x1   x2    x3)( 0  2  5 )(x2 ) 
+#                                                                                                             0  0  3   x3
+
+# Pero esta propiedad x_i = x_i^2 no se cumple para spins, ya que -1 no es igual a  (-1)^2.
+# Por lo tanto , el problema Ising no puede ser escrito totalmente  en forma matricial , porque 
+#  x1 + 2x2 + 3x3 + 4x1x2 + 5x2x3 + 6x1x3 es distinto de  x1^2 + 2x2^2 + 3x3^2 + 4x1x2 + 5x2x3 + 6x1x3
